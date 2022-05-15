@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h5 class="my-3 border-bottom pb-2">
+            Register Question
+        </h5>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                    <div>
+                        <strong>{{ field.label }}</strong>
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="subject" class="form-label">Title</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+                   value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" name="content" id="content" rows="10">
+                {{ form.content.value|default_if_none:'' }}
+            </textarea>
+        </div>
+{#        form.as_p 사용 시 기본 html 생성 (커스텀은 fomrs.py에서 처리) #}
+{#        {{ form.as_p }}#}
+        <button type="submit" class="btn btn-primary">
+            save
+        </button>
+    </form>
+    </div>
+{% endblock %}
