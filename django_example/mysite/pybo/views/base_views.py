@@ -6,6 +6,11 @@ from django.db.models import Q
 
 from ..models import Question
 
+import logging
+logger = logging.getLogger(__name__)
+# logger = logging.getLogger("pybo")
+
+
 # generic View
 class IndexView(generic.ListView):
     def get_queryset(self):
@@ -19,6 +24,9 @@ class DetailView(generic.DetailView):
 
 
 def index(request):
+    logger.info("INFO LOG TEST")
+    logger.error("ERROR LOG TEST")
+
     page = request.GET.get("page", "1")
     kw = request.GET.get("kw", "")
 
